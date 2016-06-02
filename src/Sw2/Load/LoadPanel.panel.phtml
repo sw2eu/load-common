@@ -1,0 +1,86 @@
+<?php
+
+namespace Sw2\Load;
+
+use Latte\Runtime\Filters;
+use Nette;
+use Tracy\Helpers;
+
+?>
+<style class="tracy-debug">
+
+	#tracy-debug .sw2-LoadPanel .tracy-inner {
+		width: 700px;
+	}
+
+	#tracy-debug .sw2-LoadPanel table {
+		width: 100%;
+		white-space: nowrap;
+	}
+
+	#tracy-debug .sw2-LoadPanel .date {
+		color: darkgray;
+		font-size: 0.7em;
+		float: right;
+		margin-left: 1em;
+	}
+
+	#tracy-debug .sw2-LoadPanel .hash {
+		color: darkgray;
+	}
+
+	#tracy-debug .sw2-LoadPanel .green {
+		color: green;
+		font-weight: bold;
+	}
+
+	#tracy-debug .sw2-LoadPanel .red {
+		color: red;
+		font-weight: bold;
+	}
+
+</style>
+
+<div class="sw2-LoadPanel">
+<h1>Compiled <?php echo $this->filesCount ?> file<?php echo $this->filesCount != 1 ? 's' : '' ?></h1>
+
+<div class="tracy-inner">
+	<table>
+		<?php foreach ($this->compilers as $category => $compilers): ?>
+		<tr>
+			<th colspan="2"><?php echo ucfirst($category) ?> files</th>
+			<th>Source file</th>
+			<th>Took</th>
+			<th>Size</th>
+		</tr>
+		<?php foreach ($compilers as $compiler): ?>
+		<?php foreach ($compiler->getStatistics() as $name => $statistics): ?>
+		<tr>
+			<td><?php echo htmlSpecialChars($name) ?></td>
+			<td><?php echo htmlSpecialChars($statistics['path']) ?></td>
+			<td>
+				<span class="date" title="Last change"><?php echo Filters::date($statistics['date'], 'Y-m-d H:i:s') ?></span>
+				<?php if (is_array($statistics['file'])): ?>
+				<span class="tracy-toggle tracy-collapsed">
+					<span class="tracy-dump"><?php echo count($statistics['file']) ?> files</span>
+				</span>
+				<div class="tracy-collapsed">
+					<?php foreach ($statistics['file'] as $file): ?>
+						<?php echo Helpers::editorLink($file) ?><br>
+					<?php endforeach ?>
+				</div>
+				<?php else: ?>
+				<?php echo Helpers::editorLink($statistics['file']) ?>
+				<?php endif ?>
+			</td>
+			<td class="<?php echo empty($statistics['time']) ? 'green' : 'red'?>">
+				<?php echo empty($statistics['time']) ? 'cached' : sprintf('%0.1f ms', $this->elapsedTime * 1000) ?>
+			</td>
+			<td><?php echo Filters::bytes($statistics['size']) ?></td>
+		</tr>
+		<?php endforeach ?>
+		<?php endforeach ?>
+		<?php endforeach ?>
+	</table>
+</div>
+</div>

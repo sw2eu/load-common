@@ -1,0 +1,19 @@
+{
+	"name": "sw2/load",
+	"license": "BSD",
+	"authors": [
+		{
+			"name": "Lukas Povoda",
+			"email": "lupo112@gmail.com"
+		}
+	],
+	"require": {
+		"nette/application": "~2.3",
+		"nette/di": "~2.3"
+	},
+	"autoload": {
+		"psr-0": {
+			"Sw2\\Load\\": "src/"
+		}
+	}
+}
