@@ -67,6 +67,7 @@ class LoadPanel implements IBarPanel
 		if ($this->computed) return;
 
 		foreach ($this->compilers as $category => $compilers) {
+			/** @var ICompiler $compiler */
 			foreach ($compilers as $compiler) {
 				foreach ($compiler->getStatistics() as $name => $statistics) {
 					if (!empty($statistics['time'])) {
