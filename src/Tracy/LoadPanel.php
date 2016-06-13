@@ -2,6 +2,7 @@
 
 namespace Sw2\Load\Tracy;
 
+use Sw2\Load\ICompiler;
 use Tracy\IBarPanel;
 
 /**

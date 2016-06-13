@@ -6,6 +6,7 @@ use Nette;
 use Nette\Caching\Cache;
 use Nette\Utils\Finder;
 use Nette\Utils\Strings;
+use Sw2\Load\Tracy\LoadPanel;
 
 /**
  * Class AbstractLoadExtension
