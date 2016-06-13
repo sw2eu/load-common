@@ -1,6 +1,6 @@
 <?php
 
-namespace Sw2\Load;
+namespace Sw2\Load\DI;
 
 use Nette;
 use Nette\Caching\Cache;
