@@ -41,11 +41,16 @@ abstract class LoadExtension extends Nette\DI\CompilerExtension
 	 */
 	protected function registerMacros($class)
 	{
-		$this->getContainerBuilder()->getDefinition('nette.latte')
-			->addSetup('?->onCompile[] = function ($engine) { ' . $class . '::install($engine->getCompiler()); }', ['@self']);
+		$builder = $this->getContainerBuilder();
+		if ($builder->hasDefinition('nette.latte')) {
+			$builder->getDefinition('nette.latte')
+				->addSetup('?->onCompile[] = function ($engine) { ' . $class . '::install($engine->getCompiler()); }', ['@self']);
+		}
 
-		$this->getContainerBuilder()->getDefinition('latte.latteFactory')
-			->addSetup('?->onCompile[] = function ($engine) { ' . $class . '::install($engine->getCompiler()); }', ['@self']);
+		if ($builder->hasDefinition('latte.latteFactory')) {
+			$this->getContainerBuilder()->getDefinition('latte.latteFactory')
+				->addSetup('?->onCompile[] = function ($engine) { ' . $class . '::install($engine->getCompiler()); }', ['@self']);
+		}
 	}
 
 	/**
