@@ -1,8 +1,8 @@
 <?php
 
-namespace Sw2\Load\Tracy;
+namespace Sw2\Load\Bridges\Tracy;
 
-use Sw2\Load\ICompiler;
+use Sw2\Load\Compiler\ICompiler;
 use Tracy\IBarPanel;
 
 /**

@@ -1,11 +1,10 @@
 <?php
 
-namespace Sw2\Load;
+namespace Sw2\Load\Compiler;
 
 /**
  * Interface ICompiler
- *
- * @package Sw2\Load
+ * @package Sw2\Load\Compiler
  */
 interface ICompiler
 {
