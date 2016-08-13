@@ -70,12 +70,8 @@ abstract class BaseCompiler implements ICompiler
 		}
 
 		$genFile = "{$this->wwwDir}/$path";
-		Debugger::barDump($genFile);
-		Debugger::barDump(!file_exists($genFile));
-
 		if (!file_exists($genFile) || ($this->debugMode && filemtime($genFile) < (isset($time) ? $time : ($time = $this->getModifyTime($files))))) {
 			$start = microtime(TRUE);
-			Debugger::barDump($files);
 			$parsedFiles = $this->compile($files, $genFile);
 			if ($this->debugMode) {
 				$this->statistics[$name]['time'] = microtime(TRUE) - $start;
@@ -88,6 +84,7 @@ abstract class BaseCompiler implements ICompiler
 			$this->statistics[$name]['date'] = isset($time) ? $time : ($time = $this->getModifyTime($files));
 			$this->statistics[$name]['path'] = $path;
 		}
+		Debugger::barDump($this->statistics);
 
 		return $path;
 	}

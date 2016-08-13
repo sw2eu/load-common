@@ -70,7 +70,11 @@ use Tracy\Helpers;
 			</td>
 			<td><?php echo Filters::date($statistics['date'], 'Y-m-d H:i:s') ?></td>
 			<td class="<?php echo empty($statistics['time']) ? 'green' : 'red'?>">
-				<?php echo empty($statistics['time']) ? 'cached' : sprintf('%0.1f ms', $this->elapsedTime * 1000) ?>
+				<?php if (empty($statistics['time'])): ?>
+				<?php echo 'cached' ?>
+				<?php else: $time = $statistics['time'] ?>
+				<?php echo $time > 1.0 ? sprintf('%.2fs', $time) : sprintf('%.1fms', $time * 1000) ?>
+				<?php endif ?>
 			</td>
 			<td><?php echo Filters::bytes($statistics['size']) ?></td>
 		</tr>
