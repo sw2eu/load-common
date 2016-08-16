@@ -84,7 +84,6 @@ abstract class BaseCompiler implements ICompiler
 			$this->statistics[$name]['date'] = isset($time) ? $time : ($time = $this->getModifyTime($files));
 			$this->statistics[$name]['path'] = $path;
 		}
-		Debugger::barDump($this->statistics);
 
 		return $path;
 	}
